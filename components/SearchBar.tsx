@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: '#EEEEEE',
     paddingHorizontal: 12,
-    height: 65,
+    height: 51,
     marginVertical: 10,
     // Shadow for iOS
     shadowColor: '#000',

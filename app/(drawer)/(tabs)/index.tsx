@@ -9,7 +9,10 @@ import PromoSlider from '@/components/PromoSlider';
 import SearchBar from '@/components/SearchBar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { BOUGHT_PRODUCTS, CATEGORIES, MOCK_PROMOS } from '@/constants/dummyData/dummyData';
+import { BANNERS, BOUGHT_PRODUCTS, CATEGORIES, MOCK_PROMOS, OFFERS } from '@/constants/dummyData/dummyData';
+import DeliveryInfo from '@/components/DeliveryInfo';
+import OfferStrip from '@/components/home/OfferStrip';
+import BannerGrid from '@/components/home/BannerGrid';
 
 
 export default function HomeScreen() {
@@ -26,7 +29,7 @@ export default function HomeScreen() {
       useNativeDriver: true,
       listener: (event: any) => {
         const currentOffset = event.nativeEvent.contentOffset.y;
-        
+
         // Blinkit logic: hide when scrolling down, show when scrolling up
         if (currentOffset > lastScrollY.current && currentOffset > 50) {
           // Scrolling Down
@@ -48,81 +51,71 @@ export default function HomeScreen() {
     }
   );
 
-  // return (
-  //   <View style={styles.container}>
-  //     <Animated.ScrollView
-  //       onScroll={handleScroll}
-  //       scrollEventThrottle={16}
-  //       contentContainerStyle={styles.scrollContent}
-  //       showsVerticalScrollIndicator={false}
-  //     >
-  //       <SearchBar
-  //         value={search}
-  //         onChangeText={setSearch}
-  //         onFilterPress={() => console.log("Filter opened")}
-  //         placeholder="Search products..."
-  //         containerStyle={{ marginHorizontal: 15, marginTop: 10 }}
-  //       />
-        
-  //       <PromoSlider data={MOCK_PROMOS} />
-        
-  //       <CategoryGrid 
-  //         data={CATEGORIES} 
-  //         onSeeAll={() => {
-  //           console.log('Redirecting to Search Tab');
-  //           router.push('/allBrands' as any);
-  //         }} 
-  //       />
-        
-  //       <ProductSection 
-  //         title="Frequently bought together" 
-  //         products={BOUGHT_PRODUCTS}
-  //         onAdd={(item) => console.log('Added:', item.name)}
-  //       />
-  //     </Animated.ScrollView>
-  //   </View>
-  // );
+
   return (
-  <LinearGradient
-    colors={['#F8F1E9', '#F5EBDD', '#EFE3D3']}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 1 }}
-    style={styles.container}
-  >
-    {/* ✨ Optional Glow */}
-    <View style={styles.glow} />
-
-    <Animated.ScrollView
-      onScroll={handleScroll}
-      scrollEventThrottle={16}
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
+    // <LinearGradient
+    //   colors={['#de8a8f', '#eb7494', '#eb5154']}
+    //     // colors={['#E6E6E6', '#E6E6E6', '#E6E6E6']}
+    //   start={{ x: 0, y: 0 }}
+    //   end={{ x: 1, y: 1 }}
+    //   style={styles.container}
+    // >
+    <LinearGradient
+      // A soft transition from top-left peach to bottom-right muted green
+      colors={['#cd1b1b', '#f9d2d2', '#e7d5d5', '#D3D9C1']}
+      locations={[0, 0.4, 0.8, 1]} // Spreads the colors to mimic the image layout
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.container}
     >
-      <SearchBar
-        value={search}
-        onChangeText={setSearch}
-        onFilterPress={() => console.log("Filter opened")}
-        placeholder="Search products..."
-        containerStyle={{ marginHorizontal: 15, marginTop: 10 }}
-      />
+      {/* ✨ Optional Glow */}
+      <View style={styles.glow} />
 
-      <PromoSlider data={MOCK_PROMOS} />
+      <Animated.ScrollView
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
 
-      <CategoryGrid 
-        data={CATEGORIES} 
-        onSeeAll={() => {
-          router.push('/allBrands' as any);
-        }} 
-      />
+        <DeliveryInfo
+          address="Vastrapur"
+          time="10 mins"
+          onPress={() => console.log('Change address')}
+        />
+        <SearchBar
+          value={search}
+          onChangeText={setSearch}
+          onFilterPress={() => console.log("Filter opened")}
+          placeholder="Search products..."
+          containerStyle={{ marginHorizontal: 15, marginTop: 10 }}
+        />
 
-      <ProductSection 
-        title="Frequently bought together" 
-        products={BOUGHT_PRODUCTS}
-        onAdd={(item) => console.log('Added:', item.name)}
-      />
-    </Animated.ScrollView>
-  </LinearGradient>
-);
+        <BannerGrid
+          data={BANNERS}
+          onPress={(item) => console.log('Banner clicked:', item.id)}
+        />
+
+        <ProductSection
+          title="Frequently bought together"
+          products={BOUGHT_PRODUCTS}
+          onAdd={(item) => console.log('Added:', item.name)}
+        />
+        <OfferStrip
+          data={OFFERS}
+          onPress={(item) => console.log('Offer clicked:', item.title)}
+        />
+
+        <PromoSlider data={MOCK_PROMOS} />
+        <CategoryGrid
+          data={CATEGORIES}
+          onSeeAll={() => {
+            router.push('/allBrands' as any);
+          }}
+        />
+      </Animated.ScrollView>
+    </LinearGradient>
+  );
 }
 const styles = StyleSheet.create({
   container: {

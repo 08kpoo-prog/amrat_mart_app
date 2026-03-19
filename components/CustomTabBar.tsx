@@ -19,7 +19,7 @@ const CustomTabBar: React.FC<BottomTabBarProps & { translateY?: Animated.Value }
   const getLabel = (routeName: string) => {
     switch (routeName) {
       case 'index': return 'Home';
-      case 'orders': return 'Orders';
+      case 'orders': return 'Categories';
       case 'cart': return 'Cart';
       case 'profile': return 'Profile';
       default: return routeName;

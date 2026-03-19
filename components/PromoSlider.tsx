@@ -104,14 +104,14 @@ const PromoSlider: React.FC<PromoSliderProps> = ({ data, onPressAction }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 30,
+        marginVertical: 20,
     },
     flatListContent: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     card: {
         width: ITEM_WIDTH,
-        height: 200,
+        height: 150,
         borderRadius: 30,
         flexDirection: 'row',
         padding: 20,

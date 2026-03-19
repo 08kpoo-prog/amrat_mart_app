@@ -94,9 +94,8 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title, products, onAdd 
 const styles = StyleSheet.create({
   container: {
     marginVertical: 15,
-    // paddingTop: 10,
     paddingBottom: 25,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
@@ -122,11 +121,11 @@ const styles = StyleSheet.create({
   card: {
     width: 140,
     marginRight: 12,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#F2F2F2',
-    padding: 8,
+    padding: 4,
   },
   imageContainer: {
     height: 100,

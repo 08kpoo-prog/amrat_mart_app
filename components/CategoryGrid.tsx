@@ -1,12 +1,13 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  FlatList, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export interface CategoryItem {
   id: string;
@@ -22,10 +23,20 @@ interface CategoryGridProps {
 }
 
 const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCategory }) => {
-  
-  const renderItem = ({ item }: { item: CategoryItem }) => (
-    <TouchableOpacity 
-      style={styles.itemContainer} 
+  const getItemWidth = (totalItems: number) => {
+    if (totalItems === 1) return '100%';
+    if (totalItems === 2) return '48%';
+    if (totalItems === 3) return '31%';
+    return '23%';
+  };
+
+  const renderItem = (item: CategoryItem, totalItems: number) => (
+    <TouchableOpacity
+      // style={styles.itemContainer} 
+      style={[
+        styles.itemContainer,
+        { width: getItemWidth(totalItems) }
+      ]}
       onPress={() => onPressCategory?.(item)}
       activeOpacity={0.7}
     >
@@ -39,7 +50,13 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCate
   );
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+    //  colors={['#fbc2eb', '#a6c1ee']}
+    colors={['#ebe996', '#bac9e2']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.container}
+    >
       <View style={styles.header}>
         <Text style={styles.headerTitle}>SHOP BY CATEGORY</Text>
         <TouchableOpacity onPress={onSeeAll}>
@@ -49,13 +66,14 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCate
 
       <FlatList
         data={data}
-        renderItem={renderItem}
+        // renderItem={renderItem}
+        renderItem={({ item }) => renderItem(item, data.length)}
         keyExtractor={(item) => item.id}
         numColumns={4}
         scrollEnabled={false}
         columnWrapperStyle={styles.row}
       />
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -65,9 +83,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 15,
     borderRadius: 20,
-
-    backgroundColor: '#de354c', // 👈 beige card like your image
-
+    // backgroundColor: '#de354c',
     elevation: 4,
     shadowColor: '#000',
     shadowOpacity: 0.05,
@@ -84,14 +100,14 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#fff',
+    color: 'black',
     letterSpacing: 1,
   },
 
   seeAllText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#fff', // 👈 green (matches your theme)
+    color: 'black', // 👈 green (matches your theme)
   },
 
   row: {
@@ -101,12 +117,12 @@ const styles = StyleSheet.create({
 
   itemContainer: {
     alignItems: 'center',
-    width: '23%',
+    // width: '23%',
   },
 
   iconCircle: {
-    width: 68,
-    height: 68,
+    width: 98,
+    height: 128,
     borderRadius: 4,
 
     justifyContent: 'center',

@@ -5,12 +5,12 @@ import { SweetProduct } from "@/components/SweetsGrid";
 export const CATEGORIES: CategoryItem[] = [
 { id: '1', name: 'Men', icon: 'tshirt-crew', color: '#E3F2FD' },      // Light Blue
   { id: '2', name: 'Women', icon: 'face-woman', color: '#FCE4EC' },    // Light Pink
-  { id: '3', name: 'Kids', icon: 'baby-face-outline', color: '#FFF3E0' }, // Light Orange
-  { id: '4', name: 'Beauty', icon: 'lipstick', color: '#F3E5F5' },     // Light Purple
-  { id: '5', name: 'Home', icon: 'home-variant', color: '#E8F5E9' },    // Light Green
-  { id: '6', name: 'Footwear', icon: 'shoe-sneaker', color: '#EFEBE9' }, // Light Brown
-  { id: '7', name: 'Watches', icon: 'watch', color: '#ECEFF1' },        // Light Grey
-  { id: '8', name: 'Jewellery', icon: 'necklace', color: '#FFFDE7' },
+  // { id: '3', name: 'Kids', icon: 'baby-face-outline', color: '#FFF3E0' }, // Light Orange
+  // { id: '4', name: 'Beauty', icon: 'lipstick', color: '#F3E5F5' },     // Light Purple
+  // { id: '5', name: 'Home', icon: 'home-variant', color: '#E8F5E9' },    // Light Green
+  // { id: '6', name: 'Footwear', icon: 'shoe-sneaker', color: '#EFEBE9' }, // Light Brown
+  // { id: '7', name: 'Watches', icon: 'watch', color: '#ECEFF1' },        // Light Grey
+  // { id: '8', name: 'Jewellery', icon: 'necklace', color: '#FFFDE7' },
   
 ];
 export const MOCK_PROMOS = [
@@ -21,7 +21,7 @@ export const MOCK_PROMOS = [
     buttonText: 'Get Now',
     // image: require('../../../assets/images/newarrival.png'),
     image: require('../../assets/images/newarrival.png'),
-    backgroundColor: '#EFE6D6',
+    backgroundColor: '#818e93',
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ export const MOCK_PROMOS = [
     subtitle: 'CHECK THEM OUT',
     buttonText: 'View All',
     image: require('../../assets/images/newarrival.png'),
-    backgroundColor: '#EFE6D6',
+    backgroundColor: '#818e93',
   },
 ];
 
@@ -58,8 +58,55 @@ export const BOUGHT_PRODUCTS: ProductItem[] = [
   },
 ];
 
-// Using placeholder URIs here. You can replace these with your Google Link URLs.
-// IMPORTANT: Ensure the URL ends in an image extension (.png, .jpg, .webp) for direct linking
+export const OFFERS = [
+  {
+    id: '1',
+    title: 'Free Delivery',
+    icon: 'truck-fast-outline',
+    bgColor: '#E8F5E9',
+  },
+  {
+    id: '2',
+    title: '50% OFF',
+    icon: 'sale-outline',
+    bgColor: '#FFF3E0',
+  },
+  {
+    id: '3',
+    title: 'Buy 1 Get 1',
+    icon: 'tag-outline',
+    bgColor: '#E3F2FD',
+  },
+  {
+    id: '4',
+    title: 'Cashback ₹100',
+    icon: 'cash-multiple',
+    bgColor: '#FCE4EC',
+  },
+];
+
+export const BANNERS = [
+  {
+    id: '1',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a',
+    },
+  },
+  {
+    id: '2',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1607082349566-187342175e2f',
+    },
+  },
+  // {
+  //   id: '3',
+  //   image: {
+  //     uri: 'https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae',
+  //   },
+  // },
+ 
+  // },
+];
 export const INDIAN_SWEETS_PRODUCTS: SweetProduct[] = [
   {
     id: 'sweet_1',

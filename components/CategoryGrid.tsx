@@ -8,12 +8,13 @@ import {
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Image } from 'react-native';
 
 export interface CategoryItem {
   id: string;
   name: string;
-  icon: keyof typeof MaterialCommunityIcons.glyphMap;
-  color: string; // Myntra uses different soft background colors for each category
+  image: { uri: string };
+  color: string;
 }
 
 interface CategoryGridProps {
@@ -32,27 +33,26 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCate
 
   const renderItem = (item: CategoryItem, totalItems: number) => (
     <TouchableOpacity
-      // style={styles.itemContainer} 
       style={[
         styles.itemContainer,
         { width: getItemWidth(totalItems) }
       ]}
       onPress={() => onPressCategory?.(item)}
-      activeOpacity={0.7}
+      activeOpacity={0.85}
     >
       <View style={[styles.iconCircle, { backgroundColor: item.color }]}>
-        <MaterialCommunityIcons name={item.icon} size={28} color="#282C3F" />
+        <Image source={item.image} style={styles.image} />
       </View>
-      <Text style={styles.itemText} numberOfLines={1}>
-        {item.name}
-      </Text>
+
+      <Text style={styles.itemText}>{item.name}</Text>
     </TouchableOpacity>
   );
 
   return (
     <LinearGradient
-    //  colors={['#fbc2eb', '#a6c1ee']}
-    colors={['#ebe996', '#bac9e2']}
+      //  colors={['#fbc2eb', '#a6c1ee']}
+      // colors={['#fff', '#fff']}
+       colors={['rgba(255,255,255,0.75)', 'rgba(255,255,255,0.55)']}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={styles.container}
@@ -80,14 +80,19 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCate
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 15,
-    marginVertical: 5,
+    marginVertical: 10,
     padding: 15,
     borderRadius: 20,
-    // backgroundColor: '#de354c',
     elevation: 4,
     shadowColor: '#000',
     shadowOpacity: 0.05,
     shadowRadius: 10,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 6,
+    resizeMode: 'cover',
   },
 
   header: {
@@ -124,23 +129,18 @@ const styles = StyleSheet.create({
     width: 98,
     height: 128,
     borderRadius: 4,
-
     justifyContent: 'center',
     alignItems: 'center',
-
     marginBottom: 8,
-
-    // 👇 softer shadow
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.08,
     shadowRadius: 6,
   },
-
   itemText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#fff',
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#333',
     textAlign: 'center',
   },
 });

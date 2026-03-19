@@ -3,15 +3,58 @@ import { ProductItem } from "@/components/ProductSection";
 import { SweetProduct } from "@/components/SweetsGrid";
 
 export const CATEGORIES: CategoryItem[] = [
-{ id: '1', name: 'Men', icon: 'tshirt-crew', color: '#E3F2FD' },      // Light Blue
-  { id: '2', name: 'Women', icon: 'face-woman', color: '#FCE4EC' },    // Light Pink
-  // { id: '3', name: 'Kids', icon: 'baby-face-outline', color: '#FFF3E0' }, // Light Orange
-  // { id: '4', name: 'Beauty', icon: 'lipstick', color: '#F3E5F5' },     // Light Purple
-  // { id: '5', name: 'Home', icon: 'home-variant', color: '#E8F5E9' },    // Light Green
-  // { id: '6', name: 'Footwear', icon: 'shoe-sneaker', color: '#EFEBE9' }, // Light Brown
-  // { id: '7', name: 'Watches', icon: 'watch', color: '#ECEFF1' },        // Light Grey
-  // { id: '8', name: 'Jewellery', icon: 'necklace', color: '#FFFDE7' },
-  
+  {
+    id: '1',
+    name: 'Men',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600',
+    },
+    color: '#E3F2FD',
+  },
+  {
+    id: '2',
+    name: 'Women',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600',
+    },
+    color: '#FCE4EC',
+  },
+  {
+    id: '3',
+    name: 'Kids',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=600',
+    },
+    color: '#FFF3E0',
+  },
+];
+
+export const NAVRATRI_DATA = [
+  {
+    id: '1',
+    name: 'Fruits',
+    image: { uri: 'https://picsum.photos/200?1' },
+  },
+  {
+    id: '2',
+    name: 'Dry Fruits',
+    image: { uri: 'https://picsum.photos/200?2' },
+  },
+  {
+    id: '3',
+    name: 'Juices',
+    image: { uri: 'https://picsum.photos/200?3' },
+  },
+  {
+    id: '4',
+    name: 'Snacks',
+    image: { uri: 'https://picsum.photos/200?4' },
+  },
+  {
+    id: '5',
+    name: 'Sweets',
+    image: { uri: 'https://picsum.photos/200?5' },
+  },
 ];
 export const MOCK_PROMOS = [
   {
@@ -21,7 +64,7 @@ export const MOCK_PROMOS = [
     buttonText: 'Get Now',
     // image: require('../../../assets/images/newarrival.png'),
     image: require('../../assets/images/newarrival.png'),
-    backgroundColor: '#818e93',
+    backgroundColor: '#fff',
   },
   {
     id: '2',
@@ -55,6 +98,73 @@ export const BOUGHT_PRODUCTS: ProductItem[] = [
     weight: '42 g',
     price: 20,
     image: { uri: 'https://cdn.grofers.com/app/images/products/full_screen/pro_103.jpg' },
+  },
+];
+
+export const PERSONAL_CARE_DATA = [
+  {
+    id: '1',
+    name: 'Shampoo',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be',
+    },
+    color: '#FFE4EC',
+  },
+  {
+    id: '2',
+    name: 'Face Wash',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348',
+    },
+    color: '#E3F2FD',
+  },
+  {
+    id: '3',
+    name: 'Perfume',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1594035910387-fea47794261f',
+    },
+    color: '#FFF3E0',
+  },
+  {
+    id: '4',
+    name: 'Makeup',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9',
+    },
+    color: '#FCE4EC',
+  },
+  {
+    id: '5',
+    name: 'Hair Oil',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1612817288484-6f916006741a',
+    },
+    color: '#E8F5E9',
+  },
+  {
+    id: '6',
+    name: 'Body Lotion',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc',
+    },
+    color: '#F3E5F5',
+  },
+  {
+    id: '7',
+    name: 'Trimmer',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1621600411688-4be93c2f9f9d',
+    },
+    color: '#E1F5FE',
+  },
+  {
+    id: '8',
+    name: 'Lipstick',
+    image: {
+      uri: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa',
+    },
+    color: '#FFE0E0',
   },
 ];
 
@@ -92,12 +202,12 @@ export const BANNERS = [
       uri: 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a',
     },
   },
-  {
-    id: '2',
-    image: {
-      uri: 'https://images.unsplash.com/photo-1607082349566-187342175e2f',
-    },
-  },
+  // {
+  //   id: '2',
+  //   image: {
+  //     uri: 'https://images.unsplash.com/photo-1607082349566-187342175e2f',
+  //   },
+  // },
   // {
   //   id: '3',
   //   image: {

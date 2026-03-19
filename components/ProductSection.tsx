@@ -93,7 +93,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({ title, products, onAdd 
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 15,
+    marginVertical: 2,
     paddingBottom: 25,
     // backgroundColor: '#fff',
   },

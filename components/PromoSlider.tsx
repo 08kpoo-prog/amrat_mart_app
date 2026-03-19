@@ -104,7 +104,7 @@ const PromoSlider: React.FC<PromoSliderProps> = ({ data, onPressAction }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 20,
+        marginVertical: 18,
     },
     flatListContent: {
         paddingHorizontal: 10,

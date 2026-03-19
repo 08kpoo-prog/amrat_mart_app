@@ -25,7 +25,10 @@ const BannerGrid: React.FC<BannerGridProps> = ({ data, onPress }) => {
       {data.map((item) => (
         <TouchableOpacity
           key={item.id}
-          style={styles.card}
+          style={[
+            styles.card,
+            { width: data.length === 1 ? '100%' : CARD_WIDTH }
+          ]}
           activeOpacity={0.85}
           onPress={() => onPress?.(item)}
         >
@@ -66,12 +69,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 6,
   },
-
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
+image: {
+  width: '100%',
+  height: '100%',
+  resizeMode: 'cover',
+}
 });
 
 export default BannerGrid;

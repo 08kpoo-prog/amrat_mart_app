@@ -8,7 +8,16 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import { Feather } from '@expo/vector-icons'; // Ensure you have this vector icon set installed
+import { Feather } from '@expo/vector-icons';
+
+const CARD_COLORS = [
+  '#FFF7E6',
+  '#E8F8F5',
+  '#F3E8FF',
+  '#FFECEC',
+  '#EAF2FF',
+  '#F4FFF0',
+];// Ensure you have this vector icon set installed
 
 // --- 1. Define the Product Type ---
 export interface SweetProduct {
@@ -33,13 +42,12 @@ interface SweetsGridProps {
 // Helper to get screen width for grid calculation
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const COLUMN_COUNT = 3;
-// Calculate item width accounting for 3 columns and horizontal padding
-const ITEM_WIDTH = (SCREEN_WIDTH - 30) / COLUMN_COUNT; // Assumes 15 padding on each side
+const GAP = 10;
+const ITEM_WIDTH =
+  (SCREEN_WIDTH - 30 - GAP * (COLUMN_COUNT - 1)) / COLUMN_COUNT;
 
 const SweetsGrid: React.FC<SweetsGridProps> = ({ title, products, onUpdateCart }) => {
-  // --- 3. Manage Quantities State ---
-  // A dictionary mapping product IDs to their current quantity in the cart
-  // e.g., { "1": 2, "3": 1 }
+
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
 
   // --- 4. Define Action Handlers ---
@@ -76,11 +84,11 @@ const SweetsGrid: React.FC<SweetsGridProps> = ({ title, products, onUpdateCart }
   };
 
   // --- 5. Render Individual Product Card ---
-  const renderSweetItem = ({ item }: { item: SweetProduct }) => {
+  const renderSweetItem = ({ item, index }: { item: SweetProduct; index: number }) => {
     const qty = quantities[item.id] || 0; // Get quantity for THIS product
-
+ const bgColor = CARD_COLORS[index % CARD_COLORS.length];
     return (
-      <View style={styles.cardContainer}>
+    <View style={[styles.cardContainer, { backgroundColor: bgColor }]}>
         {/* Discount Badge */}
         {item.discount && (
           <View style={styles.discountBadge}>
@@ -135,9 +143,9 @@ const SweetsGrid: React.FC<SweetsGridProps> = ({ title, products, onUpdateCart }
           </View>
 
           {/* Optional: Delivery Time */}
-          {item.deliveryTime && (
+          {/* {item.deliveryTime && (
             <Text style={styles.delivery}>{item.deliveryTime}</Text>
-          )}
+          )} */}
         </View>
       </View>
     );
@@ -172,10 +180,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '800',
     color: '#000',
-    marginBottom: 15,
+    marginBottom: 25,
   },
   listPadding: {
     paddingBottom: 10,
+     paddingRight: 5,
   },
   rowWrapper: {
     justifyContent: 'flex-start', // Products align to the left

@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 
 // Your Components
 import CategoryGrid from '@/components/CategoryGrid';
@@ -9,10 +9,12 @@ import PromoSlider from '@/components/PromoSlider';
 import SearchBar from '@/components/SearchBar';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { BANNERS, BOUGHT_PRODUCTS, CATEGORIES, MOCK_PROMOS, OFFERS } from '@/constants/dummyData/dummyData';
+import { BANNERS, BOUGHT_PRODUCTS, CATEGORIES, MOCK_PROMOS, NAVRATRI_DATA, OFFERS, PERSONAL_CARE_DATA } from '@/constants/dummyData/dummyData';
 import DeliveryInfo from '@/components/DeliveryInfo';
 import OfferStrip from '@/components/home/OfferStrip';
 import BannerGrid from '@/components/home/BannerGrid';
+import MiniCategorySection from '@/components/home/MiniCategorySection';
+import FestivalSection from '@/components/festivalSection/FestivalSection';
 
 
 export default function HomeScreen() {
@@ -53,23 +55,17 @@ export default function HomeScreen() {
 
 
   return (
-    // <LinearGradient
-    //   colors={['#de8a8f', '#eb7494', '#eb5154']}
-    //     // colors={['#E6E6E6', '#E6E6E6', '#E6E6E6']}
-    //   start={{ x: 0, y: 0 }}
-    //   end={{ x: 1, y: 1 }}
-    //   style={styles.container}
-    // >
+
     <LinearGradient
-      // A soft transition from top-left peach to bottom-right muted green
-      colors={['#cd1b1b', '#f9d2d2', '#e7d5d5', '#D3D9C1']}
-      locations={[0, 0.4, 0.8, 1]} // Spreads the colors to mimic the image layout
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+      // colors={['#ff9a9e', '#fad0c4']}
+      colors={['#ffecd2', '#fcb69f']}
       style={styles.container}
     >
       {/* ✨ Optional Glow */}
-      <View style={styles.glow} />
+      {/* <View style={styles.glow} /> */}
+      <View style={styles.blob1} />
+      <View style={styles.blob2} />
+      {/* <View style={styles.blob3} /> */}
 
       <Animated.ScrollView
         onScroll={handleScroll}
@@ -90,23 +86,40 @@ export default function HomeScreen() {
           placeholder="Search products..."
           containerStyle={{ marginHorizontal: 15, marginTop: 10 }}
         />
+        {/* 
+         <View style={styles.offerRow}>
+            <View style={styles.pill}><Text>Free Delivery</Text></View>
+            <View style={styles.pill}><Text>50% OFF</Text></View>
+            <View style={styles.pill}><Text>Buy 1 Get 1</Text></View>
+          </View> */}
 
-        <BannerGrid
+        {/* <FestivalSection
+          title="Navratri Special"
+          data={NAVRATRI_DATA}
+          backgroundColor="#fff"
+        /> */}
+
+        {/* <BannerGrid
           data={BANNERS}
           onPress={(item) => console.log('Banner clicked:', item.id)}
-        />
-
-        <ProductSection
-          title="Frequently bought together"
-          products={BOUGHT_PRODUCTS}
-          onAdd={(item) => console.log('Added:', item.name)}
-        />
+        /> */}
         <OfferStrip
           data={OFFERS}
           onPress={(item) => console.log('Offer clicked:', item.title)}
         />
 
         <PromoSlider data={MOCK_PROMOS} />
+        <ProductSection
+          title="Frequently bought together"
+          products={BOUGHT_PRODUCTS}
+          onAdd={(item) => console.log('Added:', item.name)}
+        />
+
+
+        <MiniCategorySection
+          title="Personal & Beauty Care"
+          data={PERSONAL_CARE_DATA}
+        />
         <CategoryGrid
           data={CATEGORIES}
           onSeeAll={() => {
@@ -136,5 +149,46 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF3E0',
     borderRadius: 150,
     opacity: 0.4,
+  },
+  blob1: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+    backgroundColor: '#ffdde1',
+    borderRadius: 100,
+    top: -50,
+    left: -50,
+  },
+
+  blob2: {
+    position: 'absolute',
+    width: 250,
+    height: 250,
+    backgroundColor: '#c2e9fb',
+    borderRadius: 125,
+    bottom: -80,
+    right: -60,
+  },
+
+  blob3: {
+    position: 'absolute',
+    width: 150,
+    height: 150,
+    backgroundColor: '#d4fc79',
+    borderRadius: 75,
+    top: 250,
+    right: -40,
+  },
+  offerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+
+  pill: {
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
   },
 });

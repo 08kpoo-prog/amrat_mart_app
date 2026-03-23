@@ -14,6 +14,7 @@ import {
   INDIAN_SWEETS_PRODUCTS,
   NAVRATRI_DATA,
 } from '@/constants/dummyData/dummyData';
+import { router } from 'expo-router';
 
 
 const SIDEBAR_DATA = [
@@ -78,14 +79,36 @@ export default function CategoryScreen() {
     );
   };
 
+  // const renderContentItem = ({ item }: { item: any }) => (
+  //   <TouchableOpacity 
+  //     style={styles.gridItem} 
+  //     onPress={() => console.log(`Clicked on ${item.name}`)}
+  //   >
+  //     <View style={styles.gridImageContainer}>
+  //       <Image source={item.image} style={styles.gridImage} resizeMode="contain" />
+  //     </View>
+  //     <Text style={styles.gridText} numberOfLines={2}>{item.name}</Text>
+  //   </TouchableOpacity>
+  // );
+
   const renderContentItem = ({ item }: { item: any }) => (
-    <View style={styles.gridItem}>
-      <View style={styles.gridImageContainer}>
-        <Image source={item.image} style={styles.gridImage} resizeMode="contain" />
-      </View>
-      <Text style={styles.gridText} numberOfLines={2}>{item.name}</Text>
+  <TouchableOpacity
+    style={styles.gridItem}
+    onPress={() =>
+      router.push({
+        pathname: "/product/[id]",
+        params: { id: item.id },
+      })
+    }
+  >
+    <View style={styles.gridImageContainer}>
+      <Image source={item.image} style={styles.gridImage} resizeMode="contain" />
     </View>
-  );
+    <Text style={styles.gridText} numberOfLines={2}>
+      {item.name}
+    </Text>
+  </TouchableOpacity>
+);
 
   return (
     <View style={styles.container}>
@@ -244,4 +267,3 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 });
-

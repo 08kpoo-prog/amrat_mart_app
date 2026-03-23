@@ -39,8 +39,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
-    // Ensures content starts below the iPhone notch/status bar
+    height: 70,
     paddingTop: Platform.OS === 'ios' ? 45 : 25, 
     paddingHorizontal: 20,
     flexDirection: 'row',
@@ -51,6 +50,7 @@ const styles = StyleSheet.create({
   leftSection: {
     flex: 1, // Pushes the rightSection to the far right
     justifyContent: 'center',
+    marginBottom:4
   },
   logo: {
     width: 150,
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   rightSection: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom:4
   },
   iconButton: {
     width: 44,

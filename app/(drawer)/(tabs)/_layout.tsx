@@ -8,10 +8,10 @@ export default function TabLayout() {
       <Header />
       <Tabs
         tabBar={(props) => {
-          const routeName = props.state.routes[props.state.index].name;
-          if (routeName === 'profile') {
-            return null;
-          }
+          // const routeName = props.state.routes[props.state.index].name;
+          // if (routeName === 'profile') {
+          //   return null;
+          // }
           return <CustomTabBar {...props} />;
         }}
         screenOptions={{

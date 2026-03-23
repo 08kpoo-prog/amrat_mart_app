@@ -109,6 +109,10 @@ export const PERSONAL_CARE_DATA = [
       uri: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be',
     },
     color: '#FFE4EC',
+    price: 499,
+    originalPrice: 650,
+    rating: 4.5,
+    description: "Gentle care for your hair with natural ingredients. Restores shine and softness.",
   },
   {
     id: '2',
@@ -117,6 +121,10 @@ export const PERSONAL_CARE_DATA = [
       uri: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348',
     },
     color: '#E3F2FD',
+    price: 299,
+    originalPrice: 399,
+    rating: 4.3,
+    description: "Deep cleansing face wash that removes impurities and leaves skin feeling fresh.",
   },
   {
     id: '3',
@@ -125,6 +133,9 @@ export const PERSONAL_CARE_DATA = [
       uri: 'https://images.unsplash.com/photo-1594035910387-fea47794261f',
     },
     color: '#FFF3E0',
+    price: 899,
+    originalPrice: 1200,
+    rating: 4.7,
   },
   {
     id: '4',

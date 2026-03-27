@@ -1,16 +1,24 @@
 import { useEffect } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
 import { useRouter } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function Index() {
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    async function init() {
+      await SplashScreen.preventAutoHideAsync(); // optional
       router.replace("/auth/signup");
-    }, 0);
-
-    return () => clearTimeout(timer);
+      await SplashScreen.hideAsync(); // hide splash
+    }
+    init();
   }, []);
 
-  return null;
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" />
+      <Text>Loading...</Text>
+    </View>
+  );
 }

@@ -94,7 +94,8 @@ export default function CategoryScreen() {
   const renderContentItem = ({ item }: { item: any }) => (
   <TouchableOpacity
     style={styles.gridItem}
-    onPress={() =>
+    onPress={() => 
+      // router.push(`/auth/signup`)
       router.push({
         pathname: "/product/[id]",
         params: { id: item.id },

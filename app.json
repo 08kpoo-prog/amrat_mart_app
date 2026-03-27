@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.poojadev.amritbazar",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -50,6 +54,7 @@
       "eas": {
         "projectId": "ba6eb9db-d2db-4570-85bf-9a67fec825a7"
       }
-    }
+    },
+    "owner": "poojadev"
   }
 }

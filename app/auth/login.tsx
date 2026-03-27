@@ -19,14 +19,13 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const handleLogin = () => {
     console.log("Login:", email, password);
 
-    // TODO: connect API
-    // router.replace('/');
+    router.replace({
+      pathname: '/(drawer)/(tabs)',
+    } as any);
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView

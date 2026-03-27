@@ -1,13 +1,3 @@
-// import { View, Text } from 'react-native';
-
-// export default function ProfileScreen() {
-//   return (
-//     <View>
-//       <Text>Profile Screen</Text>
-//     </View>
-//   );
-// }
-
 import React from 'react';
 import {
   View,
@@ -18,6 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 // --- Reusable Menu Item Component ---
 const MenuItem = ({ 
@@ -49,6 +40,7 @@ const MenuItem = ({
 );
   
 export default function ProfileScreen() {
+   const router = useRouter();
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -56,7 +48,7 @@ export default function ProfileScreen() {
         {/* --- Header Section --- */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.userName}>Pooja Kumari</Text>
+            <Text style={styles.userName}>John Doe</Text>
             <Text style={styles.userPhone}>+91 9876543210</Text>
           </View>
           <TouchableOpacity style={styles.editButton}>
@@ -107,9 +99,12 @@ export default function ProfileScreen() {
         </View>
 
         {/* --- Logout Button --- */}
-        <TouchableOpacity style={styles.logoutButton}>
-          <Text style={styles.logoutText}>Log Out</Text>
-        </TouchableOpacity>
+       <TouchableOpacity
+  style={styles.logoutButton}
+  onPress={() => router.replace('/auth/login')}
+>
+  <Text style={styles.logoutText}>Log Out</Text>
+</TouchableOpacity>
 
         <Text style={styles.versionText}>App Version 1.0.0</Text>
       </ScrollView>

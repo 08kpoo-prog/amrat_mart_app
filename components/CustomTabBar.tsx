@@ -10,9 +10,18 @@ import { Feather } from '@expo/vector-icons';
 
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
+type Props = BottomTabBarProps & {
+  translateY?: Animated.Value;
+  bottomInset?: number;
+};
 
-const CustomTabBar: React.FC<BottomTabBarProps & { translateY?: Animated.Value }> = ({ state, descriptors, navigation,
-  translateY = new Animated.Value(0)
+
+const CustomTabBar: React.FC<Props> = ({
+  state,
+  descriptors,
+  navigation,
+  translateY = new Animated.Value(0),
+  bottomInset = 0,
 }) => {
 
   // 1. Helper for the User-facing label
@@ -51,7 +60,15 @@ const CustomTabBar: React.FC<BottomTabBarProps & { translateY?: Animated.Value }
         { transform: [{ translateY }] },
       ]}
     >
-      <View style={styles.tabBarContainer}>
+      <View
+        style={[
+          styles.tabBarContainer,
+          {
+            paddingBottom: bottomInset,
+            height: 65 + bottomInset,
+          },
+        ]}
+      >
         {state.routes.map((route, index) => {
           const isFocused = state.index === index;
 

@@ -1,14 +1,16 @@
 import { Tabs } from 'expo-router';
 import CustomTabBar from '@/components/CustomTabBar';
 import Header from '@/components/Header';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
+   const insets = useSafeAreaInsets();
   return (
     <>
       <Header />
       <Tabs
         tabBar={(props) => {
-          return <CustomTabBar {...props} />;
+          return <CustomTabBar {...props} bottomInset={insets.bottom} />;
         }}
         screenOptions={{
           headerShown: false,

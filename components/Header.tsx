@@ -2,8 +2,10 @@
 import React from 'react';
 import { View, Image, TouchableOpacity, StyleSheet, Text, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function Header() {
+   const router = useRouter();
   return (
     <View style={styles.container}>
       
@@ -19,7 +21,9 @@ export default function Header() {
       <View style={styles.rightSection}>
         
         {/* Notification Icon */}
-        <TouchableOpacity style={styles.iconButton} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.iconButton} activeOpacity={0.7}
+         onPress={() => router.push('/notifications')}  
+        >
           <Ionicons name="notifications-outline" size={24} color="#1A1A1A" />
           <View style={styles.dotBadge} />
         </TouchableOpacity>

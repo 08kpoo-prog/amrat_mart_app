@@ -8,24 +8,80 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store';
+import { loginUser, clearError } from '@/store/slices/authSlice';
+import { loginSchema } from '@/lib/validationSchemas';
+import * as Yup from 'yup';
+
+type FormErrors = Partial<{
+  email: string;
+  password: string;
+}>;
 
 export default function LoginScreen() {
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector((state: RootState) => state.auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const handleLogin = () => {
-    console.log("Login:", email, password);
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
-    router.replace({
-      pathname: '/(drawer)/(tabs)',
-    } as any);
+  const clearFieldError = (field: keyof FormErrors) => {
+    if (formErrors[field]) {
+      setFormErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
   };
+
+  const handleLogin = async () => {
+    try {
+      await loginSchema.validate({ email, password }, { abortEarly: false });
+    } catch (validationError) {
+      if (validationError instanceof Yup.ValidationError) {
+        const errors: FormErrors = {};
+        validationError.inner.forEach((err) => {
+          if (err.path) errors[err.path as keyof FormErrors] = err.message;
+        });
+        setFormErrors(errors);
+        return;
+      }
+    }
+
+    setFormErrors({});
+    dispatch(clearError());
+
+    const result = await dispatch(loginUser({ email, password }));
+
+    if (loginUser.fulfilled.match(result)) {
+      const user = result.payload.user ?? result.payload.data;
+      if (user?.is_vendor) {
+        router.replace('/(drawer-vendor)' as any);
+      } else {
+        router.replace('/(drawer)/(tabs)' as any);
+      }
+    }
+  };
+
+  const FieldError = ({ field }: { field: keyof FormErrors }) =>
+    formErrors[field] ? (
+      <Text style={styles.fieldError}>{formErrors[field]}</Text>
+    ) : null;
+
+  const inputStyle = (field: keyof FormErrors) =>
+    formErrors[field] ? [styles.input, styles.inputError] : styles.input;
+
+  const passwordContainerStyle = (field: keyof FormErrors) =>
+    formErrors[field]
+      ? [styles.passwordContainer, styles.inputError]
+      : styles.passwordContainer;
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -34,6 +90,7 @@ export default function LoginScreen() {
       >
         <ScrollView
           contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
           {/* Header */}
@@ -53,23 +110,24 @@ export default function LoginScreen() {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
               <TextInput
-                style={styles.input}
+                style={inputStyle('email')}
                 placeholder="name@example.com"
                 value={email}
-                onChangeText={setEmail}
+                onChangeText={(v) => { setEmail(v); clearFieldError('email'); }}
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
+              <FieldError field="email" />
             </View>
 
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Password</Text>
-              <View style={styles.passwordContainer}>
+              <View style={passwordContainerStyle('password')}>
                 <TextInput
                   style={styles.passwordInput}
                   placeholder="Enter password"
                   value={password}
-                  onChangeText={setPassword}
+                  onChangeText={(v) => { setPassword(v); clearFieldError('password'); }}
                   secureTextEntry={!showPassword}
                 />
                 <TouchableOpacity
@@ -83,6 +141,7 @@ export default function LoginScreen() {
                   />
                 </TouchableOpacity>
               </View>
+              <FieldError field="password" />
             </View>
 
             {/* Forgot Password */}
@@ -93,9 +152,25 @@ export default function LoginScreen() {
               <Text style={styles.forgotText}>Forgot Password?</Text>
             </TouchableOpacity>
 
+            {/* API Error Banner */}
+            {error ? (
+              <View style={styles.errorBanner}>
+                <Ionicons name="alert-circle-outline" size={16} color="#C0392B" />
+                <Text style={styles.errorBannerText}>{error}</Text>
+              </View>
+            ) : null}
+
             {/* Login Button */}
-            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-              <Text style={styles.loginButtonText}>Log In</Text>
+            <TouchableOpacity 
+              style={[styles.loginButton, loading && styles.loginButtonDisabled]} 
+              onPress={handleLogin}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.loginButtonText}>Log In</Text>
+              )}
             </TouchableOpacity>
 
             {/* Footer */}
@@ -158,6 +233,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
+    color: '#111',
+  },
+  inputError: {
+    borderColor: '#E74C3C',
+    backgroundColor: '#FFF8F8',
+  },
+  fieldError: {
+    fontSize: 12,
+    color: '#E74C3C',
+    marginTop: 2,
+    marginLeft: 4,
   },
   passwordContainer: {
     flexDirection: 'row',
@@ -172,6 +258,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 14,
     fontSize: 16,
+    color: '#111',
   },
   eyeIcon: {
     padding: 14,
@@ -183,12 +270,31 @@ const styles = StyleSheet.create({
     color: '#0C831F',
     fontWeight: '600',
   },
+  errorBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FDECEA',
+    borderRadius: 10,
+    padding: 12,
+    gap: 8,
+  },
+  errorBannerText: {
+    flex: 1,
+    color: '#C0392B',
+    fontSize: 14,
+    lineHeight: 20,
+  },
   loginButton: {
     backgroundColor: '#0C831F',
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
     elevation: 2,
+    marginTop: 10,
+  },
+  loginButtonDisabled: {
+    backgroundColor: '#6BBF7A',
+    elevation: 0,
   },
   loginButtonText: {
     color: '#fff',
@@ -202,9 +308,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: '#666',
+    fontSize: 15,
   },
   linkText: {
     color: '#0C831F',
     fontWeight: '700',
+    fontSize: 15,
   },
-});
+});

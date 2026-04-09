@@ -89,7 +89,11 @@ export default function SignupScreen() {
     );
 
     if (registerUser.fulfilled.match(result)) {
-      router.replace('/(drawer)' as any);
+      if (role === 'vendor') {
+        router.replace('/(drawer-vendor)' as any);
+      } else {
+        router.replace('/(drawer)/(tabs)' as any);
+      }
     }
   };
 

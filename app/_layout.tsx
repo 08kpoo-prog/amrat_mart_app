@@ -1,6 +1,8 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { store } from '@/store';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -10,9 +12,11 @@ export default function RootLayout() {
   }, []);
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="auth" />
-      <Stack.Screen name="(drawer)" />
-    </Stack>
+    <Provider store={store}>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="auth" />
+        <Stack.Screen name="(drawer)" />
+      </Stack>
+    </Provider>
   );
 }

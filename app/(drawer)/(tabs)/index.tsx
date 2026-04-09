@@ -57,8 +57,8 @@ export default function HomeScreen() {
   return (
 
     <LinearGradient
-      // colors={['#ff9a9e', '#fad0c4']}
-      colors={['#ffecd2', '#fcb69f']}
+      colors={['#E6E6E6', '#E6E6E6']}
+      // colors={['#ffecd2', '#fcb69f']}
       style={styles.container}
     >
       {/* ✨ Optional Glow */}

@@ -50,9 +50,10 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ data, onSeeAll, onPressCate
 
   return (
     <LinearGradient
-      //  colors={['#fbc2eb', '#a6c1ee']}
+       colors={['#fbc2eb', '#a6c1ee']}
       // colors={['#fff', '#fff']}
-       colors={['rgba(255,255,255,0.75)', 'rgba(255,255,255,0.55)']}
+      //  colors={['rgba(255,255,255,0.75)', 'rgba(255,255,255,0.55)']}
+
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={styles.container}
